@@ -1,0 +1,31 @@
+group 'jp.toolforws.grouping'
+version '0.0.1'
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+sourceCompatibility = 1.8
+mainClassName = 'jp.toolforws.grouping.Main'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.apache.poi', name : 'poi', version: '3.+'
+    compile(group: 'org.apache.poi', name : 'poi-ooxml', version: '3.+') {
+        exclude group: 'stax', module: 'stax-api'
+    }
+    testCompile 'junit:junit:4.+'
+}
+
+tasks.withType(JavaCompile){
+    options.encoding = 'UTF-8'
+}
+
+run{
+    if(project.hasProperty('args')){
+        args project.args.split('\\s+')
+    }
+}
+
